@@ -27,6 +27,7 @@ public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
+            "/api/acstudent/v1/**",
             "/api/v1/auth/authenticate/**",
     };
     @Bean
@@ -36,7 +37,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers(GET, "/api/v1/auth/verifyEmail").permitAll()
+                                .requestMatchers(GET, "/api/v1/fetch-from-api2").permitAll()
                                 .requestMatchers(GET, "/api/v1/course/all/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_READ.name())
 //                                .requestMatchers(POST, "/api/v1/course/register/course/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
                                 .anyRequest()

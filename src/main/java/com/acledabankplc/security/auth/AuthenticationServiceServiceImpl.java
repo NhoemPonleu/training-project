@@ -34,7 +34,7 @@ public class AuthenticationServiceServiceImpl implements AuthenticationService{
         user.setEmail(registrationRequest.email);
         user.setRole(registrationRequest.getRole());
         user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-      //  user.setEnabled(false);
+        user.setEnabled(true);
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);

@@ -30,3 +30,6 @@ application:
 logging:
   level:
     root: info
+api:
+  fakestore:
+    url: https://fakestoreapi.com/products

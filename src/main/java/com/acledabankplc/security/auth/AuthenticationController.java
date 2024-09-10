@@ -23,8 +23,6 @@ public class AuthenticationController {
     }
     @PostMapping("/authenticate")
     public ResponseEntity<?>login(@RequestBody AuthenticateRequest authenticateRequest){
-//        logger.info("Message Log: {}", authenticateRequest.getEmail());
-//        logger.info("Hasha: {}", authenticateRequest);
         AuthenticationResponse authenticationResponse= authenticationService.login(authenticateRequest);
         return ResponseEntity.ok(authenticationResponse);
     }
