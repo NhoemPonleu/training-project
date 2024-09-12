@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/course")
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
 @RequiredArgsConstructor
 public class CourseController {
     private final CourseService courseService;
@@ -31,6 +31,7 @@ public class CourseController {
                 .build();
     }
     @PutMapping("{id}")
+    @PreAuthorize("hasAuthority('admin:create')")
     public BaseApi<?>updateExistingCourse(@PathVariable("id") Long courseId, @RequestBody CourseRequest courseRequest){
         Course course =courseService.updateCourse(courseRequest,courseId);
         return BaseApi.builder()
@@ -42,6 +43,7 @@ public class CourseController {
                 .build();
     }
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('admin:create')")
     public BaseApi<?>deleteCourseById(@PathVariable("id") Long courseId){
         courseService.deleteCourseById(courseId);
         return BaseApi.builder()
@@ -53,7 +55,6 @@ public class CourseController {
                 .build();
     }
     @GetMapping("/all")
-//    @PreAuthorize("hasAuthority('admin:read')")
     public BaseApi<?>findAllCourse(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size

@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "tbl_students")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Student extends Auditable {
+public class Student extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,5 +29,6 @@ public class Student extends Auditable {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
 
 }

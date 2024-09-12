@@ -12,17 +12,19 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface StudentMapper {
 
-    StudentMapper INSTANCE = Mappers.getMapper(StudentMapper.class);
-
-    @Mapping(source ="course.id", target = "courseId")
+    // Convert Student entity to StudentDTO
+    @Mapping(source = "course.id", target = "courseId")
     StudentDTO studentToStudentDTO(Student student);
 
-    @Mapping(source = "courseId", target = "course.id")
+    @Mapping(source = "courseId", target = "course", qualifiedByName = "mapCourse") // Maps courseId to Course entity
     Student studentDTOToStudent(StudentDTO studentDTO);
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "course", source = "courseId", qualifiedByName = "mapCourse")
+
+    // Update existing Student entity from StudentDTO
+   // @Mapping(target = "id", ignore = true)
+    //@Mapping(source = "courseId", target = "course", qualifiedByName = "mapCourse")
     Student updateStudentFromDTO(StudentDTO studentDTO, @MappingTarget Student student);
 
+    // Method to map course ID to Course entity
     @Named("mapCourse")
     default Course mapCourse(Long courseId) {
         if (courseId == null) {
@@ -33,4 +35,9 @@ public interface StudentMapper {
         return course;
     }
 
+    // Method to map Course entity to course ID
+    @Named("mapCourseId")
+    default Long mapCourseId(Course course) {
+        return course != null ? course.getId() : null;
+    }
 }

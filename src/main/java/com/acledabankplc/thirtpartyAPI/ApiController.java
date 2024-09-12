@@ -1,10 +1,12 @@
 package com.acledabankplc.thirtpartyAPI;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 @RestController
+@RequestMapping("api/v1/call")
 public class ApiController {
 
     private final ApiService apiService;
@@ -12,14 +14,10 @@ public class ApiController {
     public ApiController(ApiService apiService) {
         this.apiService = apiService;
     }
+    @PreAuthorize("hasAuthority('admin:read') or hasAuthority('management:read')")
+    @GetMapping("/thirtparty")
 
-    @GetMapping("/api/v1/fetch-from-api2")
     public String fetchFromApi2() {
-        // Call the service that fetches data from API 2
         return apiService.callApi2WithRestTemplate();
-    }
-    @GetMapping("/api/v1/fetch-from-api2/webflux")
-    public Mono<String> fetchFromApi2WithWebClient() {
-        return apiService.callApi2WithWebClient();
     }
 }

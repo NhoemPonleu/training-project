@@ -22,7 +22,7 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('admin:create')")
+    @PreAuthorize("hasAuthority('admin:create') or hasAuthority('management:create')")
     public ResponseEntity<?> registerNewStudent(@RequestBody @Valid StudentDTO studentDTO) {
         StudentDTO student = studentService.registerNewStudent(studentDTO);
         return ResponseEntity.ok(student);
@@ -41,6 +41,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('admin:update') or hasAuthority('management:update')")
     public BaseApi<?> updateStudent(
             @PathVariable("id") Long studentId,
             @RequestBody StudentDTO studentDTO) {
@@ -55,7 +56,7 @@ public class StudentController {
                 .build();
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<Page<?>> findAllStudent(
             @RequestParam(defaultValue = "0") int pageNo,
             @RequestParam(defaultValue = "10") int pageSize) {

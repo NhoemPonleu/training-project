@@ -1,4 +1,5 @@
 package com.acledabankplc.security.auditing;
+
 import com.acledabankplc.security.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -15,7 +16,7 @@ public class ApplicationAuditAware implements AuditorAware<Integer> {
                         .getContext()
                         .getAuthentication();
         if (authentication == null ||
-            !authentication.isAuthenticated() ||
+                !authentication.isAuthenticated() ||
                 authentication instanceof AnonymousAuthenticationToken
         ) {
             return Optional.empty();
@@ -25,4 +26,3 @@ public class ApplicationAuditAware implements AuditorAware<Integer> {
         return Optional.ofNullable(userPrincipal.getId());
     }
 }
-

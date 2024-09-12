@@ -24,10 +24,13 @@ public abstract class Auditable{
     @LastModifiedDate
     @Column(name = "last_modified_date")
     private LocalDateTime lastModifiedDate;
-    @CreatedBy
-    @Column(name = "created_by", updatable = false)
-    private Long createdBy;
+@CreatedBy
+@Column(
+        nullable = false,
+        updatable = false
+)
+    private Integer createdBy;
     @LastModifiedBy
-    @Column(name = "last_modified_by")
-    private Long lastModifiedBy;
+    @Column(insertable = false)
+    private Integer lastModifiedBy;
 }

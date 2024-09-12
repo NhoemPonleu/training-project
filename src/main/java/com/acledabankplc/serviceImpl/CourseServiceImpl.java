@@ -8,6 +8,7 @@ import com.acledabankplc.repository.CourseRepository;
 import com.acledabankplc.service.CourseService;
 import com.acledabankplc.utils.UserAuthenticationUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
-    private final CourseMapper courseMapper;
+
+    private final   CourseMapper courseMapper;
     private final UserAuthenticationUtils userAuthenticationUtils;
 
     @Override
@@ -30,7 +32,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Course registerNewCourse(CourseRequest courseRequest) {
            Course course= courseMapper.courseRequestToCourse(courseRequest);
-           course.setCreatedBy(userAuthenticationUtils.getUserRequestDTO().getUserId());
+         //  course.setCreatedBy(userAuthenticationUtils.getUserRequestDTO().getUserId());
            Course course1= courseRepository.save(course);
         return course1;
     }

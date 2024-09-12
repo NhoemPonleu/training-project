@@ -69,7 +69,10 @@ public class AuthenticationServiceServiceImpl implements AuthenticationService{
         authenticationResponse.setUserRole(user.getRole().name());
         return authenticationResponse;
     }
-
+    @Override
+    public boolean exist(String email){
+        return userRepository.existsByEmail(email);
+    }
     private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)

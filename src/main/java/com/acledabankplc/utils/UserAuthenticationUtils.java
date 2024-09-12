@@ -1,5 +1,6 @@
 package com.acledabankplc.utils;
 
+
 import com.acledabankplc.security.User;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,11 +22,11 @@ public class UserAuthenticationUtils {
 
         String username = authentication.getName();
         Object principal = authentication.getPrincipal();
-        Long userId = null;
+        String userId = null;
         String userRole = null;
 
         if (principal instanceof User) {
-            userId = Long.valueOf(((User) principal).getId());
+            userId = String.valueOf(((User) principal).getId());
         }
 
         for (GrantedAuthority authority : authentication.getAuthorities()) {
